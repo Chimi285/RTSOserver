@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
     public class Server {
         // порт, который будет прослушивать наш сервер
-        static final int PORT = 6768;
+        static final int PORT = 6969;
         // список клиентов, которые будут подключаться к серверу
         public ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 

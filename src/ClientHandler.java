@@ -82,20 +82,20 @@ public class ClientHandler implements Runnable {
                     }else{
                         switch (clientMessage){
                             case "Forward":
-                                y-=3;
                                 this.side = 0;
+                                y-=3;
                                 break;
                             case "Back":
-                                y+=3;
                                 this.side = 2;
+                                y+=3;
                                 break;
                             case "Right":
-                                x+=3;
                                 this.side = 1;
+                                x+=3;
                                 break;
                             case "Left":
-                                x-=3;
                                 this.side = 3;
+                                x-=3;
                                 break;
                             case "Hit":
                                 server.hit(this.x, this.y, this.side, this.nickname, this.damage);
@@ -137,7 +137,7 @@ public class ClientHandler implements Runnable {
         }
     }
     public String profile(){
-        if(this.nickname != null) return this.nickname + "." + this.x + "." + this.y + "."/* + this.health + "." + this.side*/;
+        if(this.nickname != null) return this.nickname + "." + this.x + "." + this.y + "." + this.health + "." + this.side + ".";
         return "";
     }
     public void close() {
