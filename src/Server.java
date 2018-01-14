@@ -5,8 +5,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-    public class Server {
+public class Server {
         // порт, который будет прослушивать наш сервер
         static final int PORT = 6969;
         // список клиентов, которые будут подключаться к серверу
@@ -55,14 +56,15 @@ import java.util.ArrayList;
             }
 
         }
-        public String serialize(int x, int y, int vizible){
-            String mes = "";
+        public Data serialize(int x, int y, int vizible){
+            LinkedList<Hero> players = new LinkedList<>();
             for (ClientHandler o : clients) {
                 //if (o.getX() - vizible <= x && o.getX() + vizible >= x && o.getY() - vizible <= y && o.getY() + vizible >= y) {
-                    mes += o.profile();
+                    players.add(o.profile());
                 //}
             }
-            return mes;
+            Data output = new Data(players, new LinkedList<item>());
+            return output;
         }
 
         public void hit(int x, int y, int side, String nick, int damage){

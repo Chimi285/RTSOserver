@@ -1,12 +1,15 @@
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Serializable;
+
 
 // реализуем интерфейс Runnable, который позволяет работать с потоками
-public class ClientHandler implements Runnable {
+public class ClientHandler implements Runnable{
 
     // экземпляр нашего сервера
     private Server server;
@@ -49,8 +52,8 @@ public class ClientHandler implements Runnable {
         try {
             while (true) {
                 // сервер отправляет сообщение
-                server.sendMessageToAllClients("New Client!");
-                server.sendMessageToAllClients("Clients = " + clients_count);
+                /*server.sendMessageToAllClients("New Client!");
+                server.sendMessageToAllClients("Clients = " + clients_count);*/
                 System.out.println("New Client!");
                 System.out.println("Clients = " + clients_count);
                 break;
@@ -63,20 +66,32 @@ public class ClientHandler implements Runnable {
                     if(this.nickname == null) {
                         System.out.println("Nick:" + clientMessage);
                         nickname = clientMessage;
+                        outMessage.println("Authorization Successful!");
+                        outMessage.flush();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 System.out.println("All ok");
+                                ObjectOutputStream oos = null;
+                                try {
+                                    oos = new ObjectOutputStream(clientSocket.getOutputStream());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 while (true){
-                                    String coor = server.serialize(x, y, vizible);
+                                    /*String coor = server.serialize(x, y, vizible);
                                     outMessage.println(coor);
                                     //System.out.println(coor);
-                                    outMessage.flush();
+                                    outMessage.flush();*/
+                                    try {
+                                        oos.writeObject(server.serialize(x, y, vizible));
+                                        oos.flush();
+                                    } catch (IOException e) {
+                                    }
                                 }
                             }
                         }).start();
-                        outMessage.println("Authorization Successful!");
-                        outMessage.flush();
+
                     }else if(clientMessage.equalsIgnoreCase("##session##end##")){
                         System.out.println(this.nickname + " disconnect");
                     }else{
@@ -102,7 +117,6 @@ public class ClientHandler implements Runnable {
 
                         }
                     }
-                    outMessage.flush();
                     if (clientMessage.equalsIgnoreCase("##session##end##")) {
                         break;
                     }
@@ -136,15 +150,17 @@ public class ClientHandler implements Runnable {
             ex.printStackTrace();
         }
     }
-    public String profile(){
-        if(this.nickname != null) return this.nickname + "." + this.x + "." + this.y + "." + this.health + "." + this.side + ".";
-        return "";
+    public Hero profile(){
+        if(this.nickname != null){
+            return new Hero(this.nickname, this.x, this.y, this.health, this.side);
+        }
+        return new Hero(null, 0, 0, 0, 0);
     }
     public void close() {
         // удаляем клиента из списка
         server.removeClient(this);
         clients_count--;
-        server.sendMessageToAllClients("Clients = " + clients_count);
+        //server.sendMessageToAllClients("Clients = " + clients_count);
         System.out.println("Clients = " + clients_count);
     }
 }
