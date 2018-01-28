@@ -114,7 +114,10 @@ public class ClientHandler implements Runnable{
                                 break;
                             case "Hit":
                                 server.hit(this.x, this.y, this.side, this.nickname, this.damage);
-
+                                break;
+                            case "Died":
+                                System.out.println("restartds");
+                                Server.restartClient(this);
                         }
                     }
                     if (clientMessage.equalsIgnoreCase("##session##end##")) {
@@ -129,6 +132,12 @@ public class ClientHandler implements Runnable{
         finally {
             this.close();
         }
+    }
+    public void restart() {
+        x = 0;
+        y = 0;
+        side = 0;
+        health = 100;
     }
     public int getX(){
         return this.x;

@@ -19,6 +19,7 @@ public class Hero implements Serializable{
         this.x = x;
         this.y = y;
     }
+
     public void setHealth(int health){
         this.health = health;
     }

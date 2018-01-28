@@ -11,7 +11,7 @@ public class Server {
         // порт, который будет прослушивать наш сервер
         static final int PORT = 6969;
         // список клиентов, которые будут подключаться к серверу
-        public ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
+        public static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
 
         public Server() {
             Socket clientSocket = null;
@@ -97,6 +97,13 @@ public class Server {
         // удаляем клиента из коллекции при выходе из чата
         public void removeClient(ClientHandler client) {
             clients.remove(client);
+        }
+        public static void restartClient(ClientHandler client){
+            for (ClientHandler o : clients){
+                if(o.getNickname().equals(client.getNickname())){
+                    o.restart();
+                }
+            }
         }
 
     }
