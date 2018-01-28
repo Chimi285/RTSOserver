@@ -116,8 +116,10 @@ public class ClientHandler implements Runnable{
                                 server.hit(this.x, this.y, this.side, this.nickname, this.damage);
                                 break;
                             case "Died":
-                                System.out.println("restartds");
-                                Server.restartClient(this);
+                                //System.out.println("restartBEFORE");
+                                this.restart();
+                                //System.out.println("restartAFTER");
+                                break;
                         }
                     }
                     if (clientMessage.equalsIgnoreCase("##session##end##")) {
@@ -127,7 +129,7 @@ public class ClientHandler implements Runnable{
             }
         }
         catch (Exception e) {
-            System.out.println("ERROR");
+            //System.out.println("ERROR");
         }
         finally {
             this.close();
@@ -138,6 +140,7 @@ public class ClientHandler implements Runnable{
         y = 0;
         side = 0;
         health = 100;
+        System.out.println("restartVOID");
     }
     public int getX(){
         return this.x;
