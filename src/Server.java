@@ -12,7 +12,6 @@ public class Server {
         static final int PORT = 6969;
         // список клиентов, которые будут подключаться к серверу
         public static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
-
         public Server() {
             Socket clientSocket = null;
             // серверный сокет
@@ -21,6 +20,7 @@ public class Server {
                 // создаём серверный сокет на определенном порту
                 serverSocket = new ServerSocket(PORT);
                 System.out.println("Сервер запущен!");
+
                 // запускаем бесконечный цикл
                 while (true) {
                     // таким образом ждём подключений от сервера
@@ -71,22 +71,22 @@ public class Server {
             for (ClientHandler o : clients) {
                 switch (side){
                     case 0:
-                        if (!nick.equals(o.getNickname()) && o.getX() + 3 >= x && o.getX() - 3 <= x && o.getY() - 10 <= y && o.getY() >= y){
+                        if (!nick.equals(o.getNickname()) && x - 100 <= o.getX() && x + 100 >= o.getX() && y - 150 <= o.getY() && y + 100 >= o.getY()){
                             o.hit(damage);
                         }
                     break;
                     case 1:
-                        if (!nick.equals(o.getNickname()) && o.getX() - 10 <= x && o.getY() + 3 >= y && o.getY() - 3 <= y + 3 && o.getX() >= x){
+                        if (!nick.equals(o.getNickname()) && x - 100 <= o.getX() && x + 150 >= o.getX() && y - 100 <= o.getY() && y + 100 >= o.getY()){
                             o.hit(damage);
                         }
                         break;
                     case 2:
-                        if (!nick.equals(o.getNickname()) && o.getX() + 3 >= x && o.getX() - 3 <= x && o.getY() + 10 >= y && o.getY() <= y){
+                        if (!nick.equals(o.getNickname()) && y - 100 <= o.getY() && y + 150 > o.getY() && x + 100 >= o.getX() && x - 100 <= o.getX()){
                             o.hit(damage);
                         }
                         break;
                     case 3:
-                        if (!nick.equals(o.getNickname()) && o.getX() + 10 >= x && o.getY() + 3 >= y && o.getY() - 3 <= y + 3 && o.getX() <= x){
+                        if (!nick.equals(o.getNickname()) && y - 100 <= o.getY() && y + 100 >= o.getY() && x - 150 <= o.getX() && x + 100 >= o.getX()){
                             o.hit(damage);
                         }
                         break;

@@ -18,13 +18,13 @@ public class ClientHandler implements Runnable{
     // входящее собщение
     private Scanner inMessage;
     private static final String HOST = "localhost";
-    private static final int PORT = 6768;
     // клиентский сокет
     private Socket clientSocket = null;
     private String nickname = null;
     // количество клиента в чате, статичное поле
     private static int clients_count = 0;
     private int x, y, health, side, damage, vizible;
+    private item[] inventory = new item[3];
 
     // конструктор, который принимает клиентский сокет и сервер
     public ClientHandler(Socket socket, Server server, String nickname, int x, int y, int health, int side, int damage, int vizible, item[] inventary) {
@@ -41,6 +41,7 @@ public class ClientHandler implements Runnable{
             this.side = side;
             this.damage = damage;
             this.vizible = vizible;
+            this.inventory = inventary;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -152,7 +153,8 @@ public class ClientHandler implements Runnable{
         return this.nickname;
     }
     public void hit(int damage){
-        this.health -= damage;
+        if(this.health - damage >= 0)this.health -= damage;
+        else this.health = 0;
     }
     public void sendMsg(String msg) {
         try {
@@ -164,9 +166,9 @@ public class ClientHandler implements Runnable{
     }
     public Hero profile(){
         if(this.nickname != null){
-            return new Hero(this.nickname, this.x, this.y, this.health, this.side);
+            return new Hero(this.nickname, this.x, this.y, this.health, this.side, this.inventory);
         }
-        return new Hero(null, 0, 0, 0, 0);
+        return new Hero(null, 0, 0, 0, 0, null);
     }
     public void close() {
         // удаляем клиента из списка
