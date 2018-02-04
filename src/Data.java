@@ -6,19 +6,19 @@ import java.util.LinkedList;
 import java.io.Serializable;
 public class Data implements Serializable{
     private LinkedList<Hero> players = new LinkedList<>();
-    private  LinkedList<item> items = new LinkedList<>();
-    public Data(LinkedList<Hero> players,  LinkedList<item> items){
-        this.items = items;
+    private  LinkedList<Building> buildings = new LinkedList<>();
+    public Data(LinkedList<Hero> players,  LinkedList<Building> buildings){
+        this.buildings = buildings;
         this.players = players;
     }
     public Data(Data data){
-        this.items = data.items;
+        this.buildings = data.buildings;
         this.players = data.players;
     }
     public LinkedList<Hero> getPlayers(){
         return this.players;
     }
-    public LinkedList<item> getItems(){
-        return this.items;
+    public LinkedList<Building> getBuildings(){
+        return this.buildings;
     }
 }

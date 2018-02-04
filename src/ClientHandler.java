@@ -80,10 +80,6 @@ public class ClientHandler implements Runnable{
                                     e.printStackTrace();
                                 }
                                 while (true){
-                                    /*String coor = server.serialize(x, y, vizible);
-                                    outMessage.println(coor);
-                                    //System.out.println(coor);
-                                    outMessage.flush();*/
                                     try {
                                         oos.writeObject(server.serialize(x, y, vizible));
                                         oos.flush();

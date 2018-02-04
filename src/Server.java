@@ -12,7 +12,9 @@ public class Server {
         static final int PORT = 6969;
         // список клиентов, которые будут подключаться к серверу
         public static ArrayList<ClientHandler> clients = new ArrayList<ClientHandler>();
+        public static ArrayList<Building> buildings = new ArrayList<>();
         public Server() {
+            buildings.add(new Building(300, 300, 300, 300, 0, "choisedNull.png", 200, 100, null));
             Socket clientSocket = null;
             // серверный сокет
             ServerSocket serverSocket = null;
@@ -56,15 +58,16 @@ public class Server {
             }
 
         }
-        public Data serialize(int x, int y, int vizible){
+        public LinkedList<Hero> serialize(int x, int y, int vizible){
             LinkedList<Hero> players = new LinkedList<>();
             for (ClientHandler o : clients) {
                 //if (o.getX() - vizible <= x && o.getX() + vizible >= x && o.getY() - vizible <= y && o.getY() + vizible >= y) {
                     players.add(o.profile());
                 //}
             }
-            Data output = new Data(players, new LinkedList<item>());
-            return output;
+
+            Data output = new Data(players, new LinkedList<Building>());
+            return players;
         }
 
         public void hit(int x, int y, int side, String nick, int damage){
