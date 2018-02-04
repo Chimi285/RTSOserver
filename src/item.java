@@ -14,4 +14,7 @@ public class item implements Serializable{
         this.y = y;
         this.picture = picture;
     }
+    public String getTexture(){
+        return picture;
+    }
 }

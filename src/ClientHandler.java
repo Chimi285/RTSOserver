@@ -4,6 +4,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.Serializable;
 
@@ -25,9 +26,11 @@ public class ClientHandler implements Runnable{
     private static int clients_count = 0;
     private int x, y, health, side, damage, vizible;
     private item[] inventory = new item[3];
+    private boolean menu;
+    private item[] outInventory;
 
     // конструктор, который принимает клиентский сокет и сервер
-    public ClientHandler(Socket socket, Server server, String nickname, int x, int y, int health, int side, int damage, int vizible, item[] inventary) {
+    public ClientHandler(Socket socket, Server server, String nickname, int x, int y, int health, int side, int damage, int vizible, item[] inventary, boolean menu, item[] outInventory) {
         try {
             clients_count++;
             this.server = server;
@@ -42,6 +45,8 @@ public class ClientHandler implements Runnable{
             this.damage = damage;
             this.vizible = vizible;
             this.inventory = inventary;
+            this.menu = menu;
+            this.outInventory = outInventory;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -81,7 +86,7 @@ public class ClientHandler implements Runnable{
                                 }
                                 while (true){
                                     try {
-                                        oos.writeObject(server.serialize(x, y, vizible));
+                                        oos.writeObject(server.serialize(x, y, vizible, menu, outInventory));
                                         oos.flush();
                                     } catch (IOException e) {
                                     }
@@ -112,6 +117,9 @@ public class ClientHandler implements Runnable{
                             case "Hit":
                                 server.hit(this.x, this.y, this.side, this.nickname, this.damage);
                                 break;
+                            case "Action":
+                                Action();
+                                break;
                             case "Died":
                                 //System.out.println("restartBEFORE");
                                 this.restart();
@@ -130,6 +138,32 @@ public class ClientHandler implements Runnable{
         }
         finally {
             this.close();
+        }
+    }
+    public void Action(){
+        for (Building o :Server.buildings) {
+            switch (side){
+                case 0:
+                    if (x - 100 <= o.getEnterX() && x + 100 >= o.getEnterX() && y - 150 <= o.getEnterY() && y + 100 >= o.getEnterY()){
+                            this.menu = true;
+                    }
+                    break;
+                case 1:
+                    if (x - 100 <= o.getEnterX() && x + 150 >= o.getEnterX() && y - 100 <= o.getEnterY() && y + 100 >= o.getEnterY()){
+                        this.menu = true;
+                    }
+                    break;
+                case 2:
+                    if (y - 100 <= o.getEnterY() && y + 150 > o.getEnterY() && x + 100 >= o.getEnterX() && x - 100 <= o.getEnterX()){
+                        this.menu = true;
+                    }
+                    break;
+                case 3:
+                    if (y - 100 <= o.getEnterY() && y + 100 >= o.getEnterY() && x - 150 <= o.getEnterX() && x + 100 >= o.getEnterX()){
+                        this.menu = true;
+                    }
+                    break;
+            }
         }
     }
     public void restart() {

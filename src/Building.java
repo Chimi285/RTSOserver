@@ -1,6 +1,5 @@
 import java.util.LinkedList;
 import java.io.Serializable;
-
 public class Building implements Serializable{
     private int X, Y, numberLut, enterX, enterY, Height, Width;
     private LinkedList<item> Lut = new LinkedList<>();
@@ -15,5 +14,35 @@ public class Building implements Serializable{
         this.Height = Height;
         this.Width = Width;
         this.Lut = Lut;
+    }
+    public int getX(){
+        return this.X;
+    }
+    public int getY() {
+        return this.Y;
+    }
+    public int getEnterX(){
+        return enterX;
+    }
+    public int getEnterY() {
+        return enterY;
+    }
+    public int getNumberLut() {
+        return numberLut;
+    }
+    public int getHeight(){
+        return Height;
+    }
+    public int getWidth(){
+        return Width;
+    }
+    public String getTexture() {
+        return texture;
+    }
+    public LinkedList<item> getLut(){
+        return Lut;
+    }
+    public Build profile(){
+        return new Build(X, Y, enterX, enterY, texture, Height, Width);
     }
 }
