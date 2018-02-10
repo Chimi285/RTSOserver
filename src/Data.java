@@ -9,17 +9,20 @@ public class Data implements Serializable{
     private  LinkedList<Build> buildings = new LinkedList<>();
     private item[] inventory = new item[9];
     private boolean menu;
-    public Data(LinkedList<Hero> players,  LinkedList<Build> buildings, boolean menu, item[] inventory){
+    private item[] InInventory = new item[3];
+    public Data(LinkedList<Hero> players,  LinkedList<Build> buildings, boolean menu, item[] inventory, item[] InInventory){
         this.buildings = buildings;
         this.players = players;
         this.menu = menu;
         this.inventory = inventory;
+        this.InInventory = InInventory;
     }
     public Data(Data data){
         this.buildings = data.buildings;
         this.players = data.players;
         this.menu = data.menu;
         this.inventory = data.inventory;
+        this.InInventory = data.InInventory;
     }
     public LinkedList<Hero> getPlayers(){
         return this.players;
@@ -32,5 +35,8 @@ public class Data implements Serializable{
     }
     public item[] getInventory() {
         return this.inventory;
+    }
+    public item[] getInInventory() {
+        return this.InInventory;
     }
 }

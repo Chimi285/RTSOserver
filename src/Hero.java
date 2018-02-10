@@ -7,14 +7,12 @@ import java.util.LinkedList;
 public class Hero implements Serializable{
     private String name;
     private int x, y, health, side;
-    private item[] inventory = new item[3];
-    public Hero(String name, int x, int y, int health, int side, item[] inventory){
+    public Hero(String name, int x, int y, int health, int side){
         this.name = name;
         this.x = x;
         this.y = y;
         this.health = health;
         this.side = side;
-        this.inventory = inventory;
     }
     public String getName(){
         return name;
@@ -41,9 +39,6 @@ public class Hero implements Serializable{
     };
     public int getSide(){
         return this.side;
-    }
-    public item[] getInventory() {
-        return this.inventory;
     }
 }
 //git comment

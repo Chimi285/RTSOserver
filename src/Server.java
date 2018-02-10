@@ -15,7 +15,8 @@ public class Server {
     public static LinkedList<Building> buildings = new LinkedList<>();
     public static LinkedList<item> inventory = new LinkedList<>();
     public Server() {
-        buildings.add(new Building(0, 0, 10, 10, 0, "choisedNull.png", 100, 200, null));
+        buildings.add(new Building(0, 0, 10, 10, 0, "choisedNull.png", 100, 200,
+                new item[]{new item("Red", "Red.png", "choisedRed.png", 0, 0, "", 0, 0), null, null, null, null, null, null, null, null}));
         Socket clientSocket = null;
         // серверный сокет
         ServerSocket serverSocket = null;
@@ -59,7 +60,7 @@ public class Server {
         }
 
     }
-    public Data serialize(int x, int y, int vizible, boolean menu, item[] inventory){
+    public Data serialize(int x, int y, int vizible, boolean menu, item[] inventory, item[] InInventory){
         LinkedList<Hero> players = new LinkedList<>();
         LinkedList<Build> builds = new LinkedList<>();
         for (ClientHandler o : clients) {
@@ -73,7 +74,7 @@ public class Server {
             //}
         }
 
-        Data output = new Data(players, builds, menu, inventory);
+        Data output = new Data(players, builds, menu, inventory, InInventory);
         return output;
     }
 
