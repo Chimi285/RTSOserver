@@ -228,47 +228,50 @@ public class ClientHandler implements Runnable{
                 switch (side) {
                     case 0:
                         if (x - 100 <= o.getEnterX() && x + 100 >= o.getEnterX() && y - 150 <= o.getEnterY() && y + 100 >= o.getEnterY()) {
-                            this.outInventory = new item[9];
-                            for (int i = 0; i < 9; i++) {
-                                // System.out.println(o.getLut().size());
-                                if (o.getLut().length > i) {
-                                    // System.out.println(o.getLut().size() + ":" + i + o.getLut().get(i));
-                                    // System.out.println();
-                                    if (o.getLut()[i] != null)
-                                        this.outInventory[i] = o.getLut()[i];
+                            item[] openI = o.getLut();
+                            inventory[0] = new item("Red", "Red.png", "choisedRed.png", 0, 0, "", 0, 0);
+                            openI[0] = null;
+                            if(inventory[0] != null) System.out.println("Work");
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reprint();
                                 }
-                            }
-                            this.menu = true;
+                            }).start();
+                            /*if (o.getLut()[0] != null) System.out.println("Isn't work");
+                            else System.out.println("Work");*/
                         }
                         break;
                     case 1:
                         if (x - 100 <= o.getEnterX() && x + 150 >= o.getEnterX() && y - 100 <= o.getEnterY() && y + 100 >= o.getEnterY()) {
-                            this.outInventory = new item[9];
-                            for (int i = 0; i < 9; i++) {
-                                // System.out.println(o.getLut().size());
-                                if (o.getLut().length > i) {
-                                    // System.out.println(o.getLut().size() + ":" + i + o.getLut().get(i));
-                                    // System.out.println();
-                                    if (o.getLut()[i] != null)
-                                        this.outInventory[i] = o.getLut()[i];
+                            item[] openI = o.getLut();
+                            inventory[0] = new item("Red", "Red.png", "choisedRed.png", 0, 0, "", 0, 0);
+                            openI[0] = null;
+                            if(inventory[0] != null) System.out.println("Work");
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reprint();
                                 }
-                            }
-                            this.menu = true;
+                            }).start();
+                            /*if (o.getLut()[0] != null) System.out.println("Isn't work");
+                            else System.out.println("Work");*/
                         }
                         break;
                     case 2:
                         if (y - 100 <= o.getEnterY() && y + 150 > o.getEnterY() && x + 100 >= o.getEnterX() && x - 100 <= o.getEnterX()) {
-                            this.outInventory = new item[9];
-                            for (int i = 0; i < 9; i++) {
-                                // System.out.println(o.getLut().size());
-                                if (o.getLut().length > i) {
-                                    // System.out.println(o.getLut().size() + ":" + i + o.getLut().get(i));
-                                    // System.out.println();
-                                    if (o.getLut()[i] != null)
-                                        this.outInventory[i] = o.getLut()[i];
+                            item[] openI = o.getLut();
+                            inventory[0] = new item("Red", "Red.png", "choisedRed.png", 0, 0, "", 0, 0);
+                            openI[0] = null;
+                            if(inventory[0] != null) System.out.println("Work");
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reprint();
                                 }
-                            }
-                            this.menu = true;
+                            }).start();
+                            /*if (o.getLut()[0] != null) System.out.println("Isn't work");
+                            else System.out.println("Work");*/
                         }
                         break;
                     case 3:
